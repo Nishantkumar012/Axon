@@ -5,10 +5,13 @@ import {
   Menu, X, FileText, Layout, Database, Share2, Globe, Star
 } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 
 const AxionLanding = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -47,7 +50,8 @@ const AxionLanding = () => {
             <a href="#pricing" className="text-gray-700 hover:text-blue-600 transition-colors">Pricing</a>
             <a href="#about" className="text-gray-700 hover:text-blue-600 transition-colors">About</a>
             <button className="text-gray-700 hover:text-blue-600 transition-colors">Sign In</button>
-            <button className="bg-gradient-to-r from-blue-600 to-blue-400 text-white px-6 py-2.5 rounded-xl font-medium hover:shadow-lg transition-all duration-300 hover:scale-105">Get Started</button>
+            <button className="bg-gradient-to-r from-blue-600 to-blue-400 text-white px-6 py-2.5 rounded-xl font-medium hover:shadow-lg transition-all duration-300 hover:scale-105"
+            onClick={() => navigate('/login')}>Get Started</button>
           </div>
 
           {/* Mobile Menu Button */}
@@ -63,7 +67,8 @@ const AxionLanding = () => {
             <a href="#pricing" className="block text-gray-700 hover:text-blue-600 py-2">Pricing</a>
             <a href="#about" className="block text-gray-700 hover:text-blue-600 py-2">About</a>
             <button className="block w-full text-left text-gray-700 hover:text-blue-600 py-2">Sign In</button>
-            <button className="w-full bg-gradient-to-r from-blue-600 to-blue-400 text-white px-6 py-2.5 rounded-xl font-medium">Get Started</button>
+            <button className="w-full bg-gradient-to-r from-blue-600 to-blue-400 text-white px-6 py-2.5 rounded-xl font-medium"
+             onClick={() => navigate('/login')}>Get Started</button>
           </div>
         )}
       </nav>
@@ -161,7 +166,8 @@ const AxionLanding = () => {
                 {plan.price !== 'Custom' && <span className={plan.popular ? 'text-blue-100' : 'text-gray-600'}>/month</span>}
               </div>
 
-              <button className={`w-full py-3 px-6 rounded-xl font-medium transition-all duration-300 mb-6 ${plan.popular ? 'bg-white text-blue-600 hover:shadow-lg' : 'bg-gradient-to-r from-blue-600 to-blue-400 text-white hover:shadow-lg hover:scale-105'}`}>Get Started</button>
+              <button className={`w-full py-3 px-6 rounded-xl font-medium transition-all duration-300 mb-6 ${plan.popular ? 'bg-white text-blue-600 hover:shadow-lg' : 'bg-gradient-to-r from-blue-600 to-blue-400 text-white hover:shadow-lg hover:scale-105'}`}
+              onClick={() => navigate('/login')}>Get Started</button>
 
               <div className="space-y-3">
                 {plan.features.map((feature, fidx) => (
