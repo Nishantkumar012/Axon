@@ -165,8 +165,8 @@ const SignupPage = () => {
         {/* Footer */}
         <p className="text-sm text-gray-600 text-center mt-6">
           Already have an account?{" "}
-          <a href="/signin" className="text-blue-600 hover:underline">
-            Sign in
+          <a href="/Login" className="text-blue-600 hover:underline">
+            Log in
           </a>
         </p>
       </motion.div>
