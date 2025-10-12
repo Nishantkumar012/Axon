@@ -52,7 +52,7 @@ export const loginHandler = async(req:Request,res:Response)=>{
                    process.env.JWT_SECRET || "def"
              )  ;
   
-         res.status(200).json({ message: "Login successful", token });
+         res.status(200).json({ message: "Login successful", token , user});
   } catch (error) {
     res.status(500).json({ message: "Error logging in", error: (error as Error).message });
   }

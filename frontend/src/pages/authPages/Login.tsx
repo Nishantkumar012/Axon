@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { ArrowRight, Eye, EyeClosed, Loader2 } from "lucide-react";
 import { axiosInstance } from "../../utils/axiosInstance";
 import { useNavigate } from "react-router-dom";
+import { useAuth }  from "../../context/AuthContext";
 
 const Login = () => {
   // const [name, setName] = useState("");
@@ -14,27 +15,70 @@ const Login = () => {
 
   const navigate = useNavigate();
 
-  const handleSignup = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError("");
-    setLoading(true);
+  const { setUser } = useAuth();
 
-    try {
-      const res = await axiosInstance.post("/auth/login", {
+
+
+  // const handleLogin = async (e: React.FormEvent) => {
+  //   e.preventDefault();
+  //   setError("");
+  //   setLoading(true);
+
+  //   try {
+  //     const res = await axiosInstance.post("/auth/login", {
         
-        email,
-        password,
-      });
+  //       email,
+  //       password,
+  //     });
 
-      alert("Log in successful! .");
-      console.log(res)
-      navigate("/dashboard");
-    } catch (err: any) {
-      setError(err.response?.data?.message || "Signup failed");
-    } finally {
-      setLoading(false);
-    }
-  };
+        
+  //     const { user, token, message } = res.data;
+
+  //     localStorage.setItem(token)
+
+  //     alert("Log in successful! .");
+  //     console.log(res)
+  //     navigate("/dashboard");
+  //   } catch (err: any) {
+  //     setError(err.response?.data?.message || "Signup failed");
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
+
+
+   const handleLogin = async (e: React.FormEvent) => {
+  e.preventDefault();
+  setError("");
+  setLoading(true);
+
+  try {
+    const res = await axiosInstance.post("/auth/login", { email, password });
+
+    // Extract values
+    const { user, token, message } = res.data;
+
+    // Save token to localStorage (for persistence)
+    localStorage.setItem("token", token);
+    localStorage.setItem("user", JSON.stringify(user));
+
+
+    // Save user to context (so app knows who is logged in)
+    setUser(user);
+
+    console.log("Login Response:", res.data);
+    alert(message || "Login successful!");
+
+    // Redirect to dashboard
+    navigate("/app");
+  } catch (err: any) {
+    setError(err.response?.data?.message || "Login failed");
+  } finally {
+    setLoading(false);
+  }
+};
+
+
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-white to-blue-50 relative overflow-hidden px-6">
@@ -70,7 +114,7 @@ const Login = () => {
         )}
 
         {/* Form */}
-        <form className="space-y-5" onSubmit={handleSignup}>
+        <form className="space-y-5" onSubmit={handleLogin}>
          
 
           <div>
